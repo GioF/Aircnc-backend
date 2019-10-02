@@ -6,9 +6,6 @@ install:
   - yarn add newman
   - yarn
 
-env:
-  - CI=TRUE
-
 before_script:
   - node --version
   - npm --version
