@@ -1,12 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config()
 
 const routes = require('./routes');
 
+if(!CI){
+  require('dotenv').config()
+  let MONGOURL=proccess.env.MONGOURL
+}
+
 const app = express();
 
-mongoose.connect(proccess.env.MONGOURL,{
+mongoose.connect(MONGOURL,{
   useNewUrlParser: true,
   useUnifiedTopology: true,  
 })
