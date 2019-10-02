@@ -5,6 +5,9 @@ node_js:
 install:
   - yarn add newman
 
+env:
+  - MONGOURL=$MONGOURL
+
 before_script:
   - node --version
   - npm --version
