@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "test": "newman run tests/aircncTestCollection.json -e aircncEnvironment.json"
+    "test": "newman run tests/aircncTestCollection.json -e tests/aircncEnvironment.json"
   },
   "dependencies": {
     "express": "^4.17.1",
