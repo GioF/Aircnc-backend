@@ -5,12 +5,12 @@ const routes = require('./routes');
 
 const app = express();
 
-console.log(process.env.MONGOURL);
-
-mongoose.connect(toString(process.env.MONGOURL),{
+mongoose.connect(process.env.MONGOURL,{
   useNewUrlParser: true,
   useUnifiedTopology: true,  
 })
+.then(console.log("listening on port 3333"))
+.catch(error=>console.log(process.env.MONGOURL, error));
 
 app.use(express.json());
 app.use(routes);
