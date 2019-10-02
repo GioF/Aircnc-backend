@@ -4,7 +4,7 @@ require('dotenv').config()
 const routes = require('./routes');
 
 if(process.env.CI){
-  let MONGOURL=proccess.env.MONGOURL
+  let MONGOURL=process.env.MONGOURL
 }
 
 const app = express();
