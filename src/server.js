@@ -1,10 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+require('dotenv').config()
 const routes = require('./routes');
 
 if(process.env.CI){
-  require('dotenv').config()
   let MONGOURL=proccess.env.MONGOURL
 }
 
