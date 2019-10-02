@@ -10,3 +10,4 @@ before_script:
   - node --version
   - npm --version
   - node_modules/.bin/newman --version
+  - echo $MONGOURL
