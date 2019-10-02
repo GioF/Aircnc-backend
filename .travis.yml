@@ -2,7 +2,7 @@ language: node_js
 node_js: 
  - 10.15.2
 
- install:
+install:
   - yarn install newman
 
 before_script:
