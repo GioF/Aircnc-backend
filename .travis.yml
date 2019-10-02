@@ -7,9 +7,7 @@ install:
   - yarn
 
 env:
-  matrix:
-    - MONGOURL=$MONGOURL
-    - CI=$CI
+  - MONGOURL=$MONGOURL CI=$CI
 
 before_script:
   - node --version
