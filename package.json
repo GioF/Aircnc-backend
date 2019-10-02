@@ -5,14 +5,16 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "test": "newman run tests/aircncTestCollection.json"
+    "test": "MONGOURL=$MONGOURL node src/server.js && newman run tests/aircncTestCollection.json -e tests/aircncEnvironment.json"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "dotenv": "^8.1.0",
     "mongoose": "^5.7.3",
     "multer": "^1.4.2"
   },
   "devDependencies": {
+
     "nodemon": "^1.19.3"
   }
 }

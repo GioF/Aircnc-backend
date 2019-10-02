@@ -1,14 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+require('dotenv').config()
 const routes = require('./routes');
 
 const app = express();
 
-mongoose.connect("mongodb+srv://omnistack:omnistack@tubiba-cluster-wtkfk.mongodb.net/semana09?retryWrites=true&w=majority",{
+mongoose.connect(process.env.MONGOURL,{
   useNewUrlParser: true,
   useUnifiedTopology: true,  
 })
+.then(console.log("listening on port 3333"))
+.catch(error=>console.log(process.env.MONGOURL, error));
 
 app.use(express.json());
 app.use(routes);

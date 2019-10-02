@@ -2,10 +2,12 @@ language: node_js
 node_js: 
  - 10.15.2
 
- install:
-  - yarn install newman
+install:
+  - yarn add newman
+  - yarn
 
 before_script:
   - node --version
   - npm --version
   - node_modules/.bin/newman --version
+  - echo $MONGOURL

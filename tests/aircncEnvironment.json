@@ -1,0 +1,39 @@
+{
+	"id": "b202b98e-d006-4bc3-b158-9e6ca346ca02",
+	"name": "Omnistack Aircnc",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3333",
+			"enabled": true
+		},
+		{
+			"key": "currentEmail",
+			"value": "user_kkwwaiv7qek3bmk7kh08l@gmail.com",
+			"enabled": true
+		},
+		{
+			"key": "currentUserId",
+			"value": "5d94127bedb529200faef883",
+			"enabled": true
+		},
+		{
+			"key": "currentPrice",
+			"value": 41,
+			"enabled": true
+		},
+		{
+			"key": "currentSpotId",
+			"value": "5d94165fedb529200faef885",
+			"enabled": true
+		},
+		{
+			"key": "currentBookingDate",
+			"value": "13 de Março",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2019-10-02T04:59:50.303Z",
+	"_postman_exported_using": "Postman/7.8.0"
+}
