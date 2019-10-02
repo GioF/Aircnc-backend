@@ -3,13 +3,9 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 const routes = require('./routes');
 
-if(process.env.CI){
-  let MONGOURL=process.env.MONGOURL
-}
-
 const app = express();
 
-mongoose.connect(MONGOURL,{
+mongoose.connect(process.env.MONGOURL,{
   useNewUrlParser: true,
   useUnifiedTopology: true,  
 })
