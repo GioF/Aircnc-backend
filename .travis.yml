@@ -3,7 +3,7 @@ node_js:
  - 10.15.2
 
 install:
-  - yarn install newman
+  - yarn add newman
 
 before_script:
   - node --version
