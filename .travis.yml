@@ -1,0 +1,11 @@
+language: node_js
+node_js: 
+ - 10.15.2
+
+ install:
+  - yarn install newman
+
+before_script:
+  - node --version
+  - npm --version
+  - node_modules/.bin/newman --version

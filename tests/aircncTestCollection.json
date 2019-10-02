@@ -1,0 +1,366 @@
+{
+	"info": {
+		"_postman_id": "89d34a03-b4ee-4671-bab0-0668a3cfbc14",
+		"name": "aircnc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "Store",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "345df3c8-6806-4590-ae3b-05698cfd8c53",
+								"exec": [
+									"const uuid = Math.random().toString(36).substring(2, 15) +",
+									"        Math.random().toString(36).substring(2, 15);",
+									"const email = \"user_\" + uuid + \"@gmail.com\";",
+									"pm.environment.set(\"currentEmail\", email);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3415e9ad-3ab7-4c42-b257-221cae9746b7",
+								"exec": [
+									"pm.test(\"Response is OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"User session is stored\", function () {",
+									"    pm.response.to.have.jsonBody(\"email\");",
+									"    pm.response.to.have.jsonBody(\"_id\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"currentUserId\",jsonData._id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{currentEmail}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/sessions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Spot",
+			"item": [
+				{
+					"name": "Store",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "63123c84-6d4d-45c9-b345-38aefcafc956",
+								"exec": [
+									"let price = (Math.random() * (99 - 1 + 1) ) << 0;",
+									"pm.environment.set(\"currentPrice\", price);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d4259783-2820-4628-a571-fdf0922aa846",
+								"exec": [
+									"pm.test(\"Response is OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Spot is correctly stored\", function () {",
+									"    pm.response.to.have.jsonBody(\"techs\");",
+									"    ",
+									"    pm.response.to.have.jsonBody(\"_id\");",
+									"    pm.response.to.have.jsonBody(\"user\");",
+									"    pm.response.to.have.jsonBody(\"thumbnail\");",
+									"    pm.response.to.have.jsonBody(\"company\");",
+									"    pm.response.to.have.jsonBody(\"price\");",
+									"    ",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    pm.expect(jsonData.user)",
+									"    .to.eql(pm.environment.get(\"currentUserId\"));",
+									"    ",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"currentSpotId\",jsonData._id);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "text/plain",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{currentUserId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "thumbnail",
+									"type": "file",
+									"src": "yall cuckin.jpg"
+								},
+								{
+									"key": "company",
+									"value": "Rocketseat",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "{{currentPrice}}",
+									"type": "text"
+								},
+								{
+									"key": "techs",
+									"value": "ReactJs, ReactNative, NodeJS",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/spots",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"spots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f256236-c854-4e89-b776-50a427e0ba17",
+								"exec": [
+									"pm.test(\"Spots were Indexed\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/spots?tech=ReactJs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"spots"
+							],
+							"query": [
+								{
+									"key": "tech",
+									"value": "ReactJs"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Show",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "46b80b5f-5657-40bb-968b-24b8f6135c65",
+								"exec": [
+									"pm.test(\"No problems with fetching spots\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{currentUserId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/dashboard",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dashboard"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "Store",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "53dcdcb8-6a72-4c01-8c03-edfec36b7ab3",
+								"exec": [
+									"let dia = (Math.random() * (31 - 1 + 1) ) << 0;",
+									"let mes = (Math.random() * (12 - 1 + 1) ) << 0;",
+									"let listaDeMeses = [\"Janeiro\", \"Fevereiro\", \"Março\", \"Abril\", \"Maio\", \"Junho\", \"Julho\", \"Agosto\", \"Setembro\", \"Outubro\", \"Novembro\", \"Dezembro\"];",
+									"pm.environment.set(\"currentBookingDate\",",
+									"`${dia} de ${listaDeMeses[mes]}`);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "77f402c1-8ad7-4df0-b3ba-3435431a6e71",
+								"exec": [
+									"pm.test(\"Bookings fetch successfull\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"All info is from the requesting user\", function () {",
+									"    ",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    let { _id, user, spot } = jsonData;",
+									"    ",
+									"    pm.expect(user._id)",
+									"    .to.eql(pm.environment.get(\"currentUserId\"));",
+									"    ",
+									"    pm.expect(spot.user)",
+									"    .to.eql(pm.environment.get(\"currentUserId\"));",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Spot is the same that was registered before\"), function () {",
+									"    ",
+									"    pm.expect(spot._id)",
+									"    .to.eql(pm.environment.get(\"currentSpotId\"));",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{currentUserId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"date\": \"{{currentBookingDate}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/spots/{{currentSpotId}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"spots",
+								"{{currentSpotId}}",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
